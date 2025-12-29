@@ -15,7 +15,6 @@ from entities.penalty import Penalty
 
 from controllers.auth_controller import auth_bp
 from controllers.book_controller import book_bp
-from controllers.category_controller import category_bp
 from controllers.user_controller import user_bp
 from controllers.borrowing_controller import borrowing_bp
 from controllers.admin_controller import admin_bp
@@ -33,7 +32,6 @@ app.register_blueprint(report_bp)
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(book_bp)
-app.register_blueprint(category_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(borrowing_bp)
 with app.app_context():

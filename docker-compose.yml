@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: library-db
+    environment:
+      POSTGRES_DB: library_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/sql:/docker-entrypoint-initdb.d
+
+  api:
+    build: ./backend
+    container_name: library-api
+    depends_on:
+      - db
+    environment:
+      DB_URL: postgresql://postgres:1234@db:5432/library_db
+      JWT_SECRET: secret123
+    ports:
+      - "5000:5000"
+
+volumes:
+  pgdata:

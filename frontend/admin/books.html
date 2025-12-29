@@ -1,0 +1,17 @@
+<h2>Kitap Yönetimi</h2>
+
+<input id="title" placeholder="Başlık">
+<input id="author" placeholder="Yazar">
+<button onclick="addBook()">Ekle</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Başlık</th><th>Yazar</th><th>Kimde</th><th>Sil</th>
+    </tr>
+  </thead>
+  <tbody id="books"></tbody>
+</table>
+
+<script src="../js/api.js"></script>
+<script src="../js/admin/books.js"></script>

@@ -1,0 +1,206 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Akıllı Kütüphane Yönetim Sistemi API",
+    "version": "1.0.0",
+    "description": "Flask + PostgreSQL tabanlı kütüphane yönetim sistemi"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Kullanıcı Girişi",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "JWT token döner" }
+        }
+      }
+    },
+
+    "/books": {
+      "get": {
+        "summary": "Kitapları Listele",
+        "responses": {
+          "200": { "description": "Kitap listesi" }
+        }
+      },
+      "post": {
+        "summary": "Kitap Ekle (Admin)",
+        "responses": {
+          "200": { "description": "Kitap eklendi" }
+        }
+      }
+    },
+
+    "/books/{id}": {
+      "delete": {
+        "summary": "Kitap Sil (Admin)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Kitap silindi" }
+        }
+      }
+    },
+
+    "/categories": {
+      "get": {
+        "summary": "Kategorileri Listele",
+        "responses": { "200": { "description": "Kategori listesi" } }
+      },
+      "post": {
+        "summary": "Kategori Ekle (Admin)",
+        "responses": { "200": { "description": "Kategori eklendi" } }
+      }
+    },
+
+    "/categories/{id}": {
+      "delete": {
+        "summary": "Kategori Sil (Admin)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": { "200": { "description": "Kategori silindi" } }
+      }
+    },
+
+    "/api/borrowings/": {
+      "get": {
+        "summary": "Tüm Ödünçler",
+        "responses": { "200": { "description": "Ödünç listesi" } }
+      },
+      "post": {
+        "summary": "Kitap Ödünç Al",
+        "responses": { "200": { "description": "Ödünç alındı" } }
+      }
+    },
+
+    "/api/borrowings/return/{borrowing_id}": {
+      "put": {
+        "summary": "Kitap İade",
+        "parameters": [
+          {
+            "name": "borrowing_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": { "200": { "description": "İade edildi" } }
+      }
+    },
+
+    "/my-borrowings": {
+      "get": {
+        "summary": "Kullanıcının Ödünçleri",
+        "responses": { "200": { "description": "Ödünçler" } }
+      }
+    },
+
+    "/my-penalties": {
+      "get": {
+        "summary": "Kullanıcının Cezaları",
+        "responses": { "200": { "description": "Ceza listesi" } }
+      }
+    },
+
+    "/admin/books-status": {
+      "get": {
+        "summary": "Kitap Durumları (Admin)",
+        "responses": { "200": { "description": "Durum listesi" } }
+      }
+    },
+
+    "/admin/users": {
+      "get": {
+        "summary": "Kullanıcıları Listele (Admin)",
+        "responses": { "200": { "description": "Kullanıcı listesi" } }
+      }
+    },
+
+    "/admin/users/{id}": {
+      "delete": {
+        "summary": "Kullanıcı Sil (Admin)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": { "200": { "description": "Kullanıcı silindi" } }
+      }
+    },
+
+    "/admin/reports": {
+      "get": {
+        "summary": "Admin Raporları",
+        "responses": { "200": { "description": "Rapor listesi" } }
+      }
+    },
+
+    "/admin/clear-penalties": {
+      "post": {
+        "summary": "Kullanıcı Cezalarını Temizle (Admin)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Cezalar temizlendi" } }
+      }
+    }
+  }
+}
